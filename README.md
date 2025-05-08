@@ -19,7 +19,7 @@ Then, to build the image with the `1.0.0` tag, run:
 docker build -t housing-model:1.0.0 .
 ```
 
-Alternatively, you can use a CI/CD pipeline to automate the build and deployment process. Please, check out [deploy.yml](https://github.com/icleveston/sound-realty/blob/main/.github/workflows/deploy.yml).
+Alternatively, you can use a CI/CD pipeline to automate the build and deployment process. Please, check out [deploy.yml](https://github.com/icleveston/sound-realty/blob/master/.github/workflows/deploy.yml).
 
 
 Open a new terminal and mount the local directory containing the data and model weights into the cluster:
