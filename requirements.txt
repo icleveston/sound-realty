@@ -1,0 +1,7 @@
+fastapi
+pydantic
+requests
+scikit-learn
+uvicorn[standard]
+gunicorn
+pandas
