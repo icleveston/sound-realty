@@ -1,10 +1,15 @@
 import csv
 from typing import Any
 import requests
-import json
 
 
-def post(payload: str, url: str = "http://localhost:8080/predict_raw") -> Any | None:
+def post(payload: dict, url: str = "http://localhost:8080/predict?with_metadata=true") -> Any | None:
+    """
+    Send the payload to the Api.
+    :param payload: a dictionary containing the payload
+    :param url: API url
+    :return: the prediction and metadata
+    """
 
     headers = {
         "Content-Type": "application/json"
@@ -22,14 +27,14 @@ def post(payload: str, url: str = "http://localhost:8080/predict_raw") -> Any | 
 
 def main():
 
-    with open("../data/future_unseen_examples.csv", newline="", encoding="utf-8") as f:
+    with open("./data/future_unseen_examples.csv", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
 
         for line in reader:
 
-            payload = json.dumps({k: float(v) for k, v in line.items()})
+            payload = {k: float(v) for k, v in line.items()}
 
-            print(f"Requesting: {payload}")
+            print(f"Request: {payload}")
             response = post(payload)
             print(f"Response: {response}\n")
 
