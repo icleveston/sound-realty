@@ -41,9 +41,9 @@ app = FastAPI(title="Housing Pricing Model",
               redoc_url="/redoc",
               openapi_url="/openapi.json")
 
-model: Pipeline = pickle.load(open("./data/model/model.pkl", "rb"))
+model: Pipeline = pickle.load(open("/data/model/model.pkl", "rb"))
 
-with open("./data/model/model_features.json", "r", encoding="utf-8") as f:
+with open("/data/model/model_features.json", "r", encoding="utf-8") as f:
     model_features = json.load(f)
 
 config = {v: (float, ...) for v in model_features}
@@ -51,7 +51,7 @@ config = {v: (float, ...) for v in model_features}
 HousingInputRequiredModel = create_model("HousingInputRequiredModel", **config)
 
 
-demographics = pd.read_csv("./data/zipcode_demographics.csv", dtype={'zipcode': int})
+demographics = pd.read_csv("/data/zipcode_demographics.csv", dtype={'zipcode': int})
 
 
 def filter_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -106,7 +106,7 @@ async def predict(data: HousingInputModel, with_metadata: bool = False) -> Housi
 
     Output:
         HousingOutputModel = {
-            "predicted_price": 525000.0,
+            "prediction": 525000.0,
             "metadata": {  # Only if 'with_metadata' is True
                 "latency": 0.002555,
             }
@@ -189,7 +189,7 @@ async def predict_required(data: HousingInputRequiredModel, with_metadata: bool 
 
     Output:
         HousingOutputModel = {
-            "predicted_price": 525000.0,
+            "prediction": 525000.0,
             "metadata": {  # Only if 'with_metadata' is True
                 "latency": 0.002555,
             }

@@ -33,6 +33,6 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/housing-model housing-model=ghcr.io/${{ github.repository }}:${{ env.VERSION }} --record
+          kubectl set image deployment/housing-model-deployment housing-model=ghcr.io/${{ github.repository }}:${{ env.VERSION }}
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
