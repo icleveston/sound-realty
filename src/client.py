@@ -15,15 +15,12 @@ def post(payload: dict, url: str = "http://192.168.49.2:32622/predict?with_metad
         "Content-Type": "application/json"
     }
 
-    try:
+    response = requests.post(url, json=payload, headers=headers)
 
-        response = requests.post(url, json=payload, headers=headers)
-
-        if response.status_code == 200:
-            return response.json()
-
-    except requests.exceptions.RequestException:
-        return None
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception(response.json())
 
 def main():
 
