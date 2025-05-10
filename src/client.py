@@ -3,7 +3,7 @@ from typing import Any
 import requests
 
 
-def post(payload: dict, url: str = "http://localhost:8080/predict?with_metadata=true") -> Any | None:
+def post(payload: dict, url: str = "http://192.168.49.2:32622/predict?with_metadata=true") -> Any | None:
     """
     Send the payload to the Api.
     :param payload: a dictionary containing the payload
@@ -27,16 +27,18 @@ def post(payload: dict, url: str = "http://localhost:8080/predict?with_metadata=
 
 def main():
 
-    with open("./data/future_unseen_examples.csv", newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+    while True:
 
-        for line in reader:
+        with open("./data/future_unseen_examples.csv", newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
 
-            payload = {k: float(v) for k, v in line.items()}
+            for line in reader:
 
-            print(f"Request: {payload}")
-            response = post(payload)
-            print(f"Response: {response}\n")
+                payload = {k: float(v) for k, v in line.items()}
+
+                print(f"Request: {payload}")
+                response = post(payload)
+                print(f"Response: {response}\n")
 
 
 if __name__ == "__main__":
